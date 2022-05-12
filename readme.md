@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## Install Process
+## Laravel Blog V1 - Installation
 - Create a database locally and put the name on the .env file
 - Download composer https://getcomposer.org/download/
 - Pull this project in your favorite git provider (GithubDesktop, bash, kraken).
