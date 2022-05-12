@@ -49,12 +49,17 @@
                                 </li>
                             @endif
                         @else
+                            @hasanyrole('administrator')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                             </li>
+                            @endhasanyrole
+                        
+                            @hasanyrole('administrator|blogger|supervisor')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('blogs.index') }}">{{ __('Blogs') }}</a>
                             </li>
+                            @endhasanyrole
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

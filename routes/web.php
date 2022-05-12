@@ -17,7 +17,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::put('/profile', 'HomeController@update')->name('users.profile');
-
+    
     Route::resource('users', 'UserController');
     Route::resource('blogs', 'BlogController');
 });
