@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+// Protected Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('user/profile', function () {
+        return "xd";
+    });
 });
