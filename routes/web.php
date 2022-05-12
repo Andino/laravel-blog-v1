@@ -16,8 +16,8 @@ Auth::routes();
 // Protected Routes
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::put('/profile', 'HomeController@update')->name('users.profile');
 
-    Route::get('user/profile', function () {
-        return "xd";
-    });
+    Route::resource('users', 'UserController');
+    Route::resource('blogs', 'BlogController');
 });
