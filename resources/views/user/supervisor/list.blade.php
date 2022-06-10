@@ -59,7 +59,7 @@
                             <td class="d-flex">
                                 
                                 @can('users detail')
-                                    <a href="{{ route('users.show', ['user' => $user->id]) }}" type="button" class="btn btn-outline-success mr-2">View</a>
+                                    <a href="{{ route('users.show', ['user' => $user->id]) }}" type="button" class="btn btn-outline-success mr-2">Assign Users</a>
                                 @endcan
                                 @can('users edit')
                                     <a href="{{ route('users.edit', ['user' => $user->id]) }}" type="button" class="btn btn-outline-primary mr-2">Edit</a>

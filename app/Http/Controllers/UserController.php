@@ -121,7 +121,15 @@ class UserController extends Controller
     public function show(User $user)
     {
         $roles = $this->roles->all();
-        return view('user.view', compact('user', 'roles'));
+        $users = [];
+        $bloggers = [];
+        if ($user->hasRole('supervisor')) {
+            $users = $this->users->where('parent', $user->id)->paginate(20);
+            $bloggers = $this->users->whereHas('roles', function ($query) {
+                $query->where("name", 'blogger');
+            })->where('parent', 0)->get();
+        }
+        return view('user.view', compact('user', 'users', 'roles', 'bloggers'));
     }
 
     /**
@@ -162,5 +170,35 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/users')->with('success', 'User has been deleted Successfully');
+    }
+
+    /**
+     * Assign a user to the selected supervisor
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function assign(User $user, Request $request)
+    {
+        $this->users->whereIn('id', $request->bloggers)->update([
+            "parent" => $user->id
+        ]);
+
+        return redirect('/user/supervisor')->with('success', 'Blogger has been assigned Successfully');
+    }
+
+    /**
+     * Remove a user from the selected supervisor
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function remove($id, $user)
+    {
+        $user = $this->users->find($user);
+        $user->parent = 0;
+        $user->update();
+
+        return redirect('/user/supervisor')->with('success', 'Blogger has been removed Successfully');
     }
 }

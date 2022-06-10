@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', 'HomeController@update')->name('users.profile');
 
     Route::get('/user/{role}', 'UserController@listByRole')->name('supervisors.list');
+    Route::post('/user/{user}/assign', 'UserController@assign')->name('supervisors.assign');
+    Route::delete('/user/{id}/remove/{user}', 'UserController@remove')->name('supervisors.remove');
     Route::resource('users', 'UserController');
     Route::resource('blogs', 'BlogController');
 });
