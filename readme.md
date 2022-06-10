@@ -55,4 +55,5 @@ credentials:
 
     secret
 
-## Points Not Covered
+## Notes
+For the last_login field i'm using one listener to watch the login event for the timestamp() registration, please check it out
