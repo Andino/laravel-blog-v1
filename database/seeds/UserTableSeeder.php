@@ -20,5 +20,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret')
         ]);
         $admin->assignRole('administrator');
+
+        factory(User::class, 50)->create();
     }
 }

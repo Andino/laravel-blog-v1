@@ -16,10 +16,18 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->name,
+        'last_name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => Str::random(10),
     ];
+});
+
+//Random Role assignation
+$roles = ["supervisor, blogger"];
+$key = array_rand($roles);
+$factory->afterCreating(User::class, function ($user, $faker) {
+    $user->assignRole($roles[$key]);
 });
