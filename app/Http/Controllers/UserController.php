@@ -75,6 +75,9 @@ class UserController extends Controller
                 ->orWhere('last_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
             })
+            ->when($loggedUser->hasRole('supervisor'), function ($query, $role) use ($loggedUser) {
+                $query->where('parent', $loggedUser->id);
+            })
             ->when($role, function ($q) use ($role) {
                 $q->whereHas('roles', function ($query) use ($role) {
                     $query->where("name", $role);

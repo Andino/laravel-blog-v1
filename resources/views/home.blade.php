@@ -44,14 +44,25 @@
                         @hasanyrole('blogger|supervisor')
                         <div class="card border-primary mb-3 col-md-3 m-2" style="max-width: 18rem;">
                             <div class="card-body text-primary">
-                                <h5 class="card-title">My Blogs created</h5>
-                                <p class="card-text">You have: {{$myBlogs}} blog/s created.</p>
+                                <h5 class="card-title">My Blogs created 
+                                @hasanyrole('supervisor')
+                                / assigned
+                                @endhasanyrole
+                                .
+                                </h5>
+                                <p class="card-text">You have: {{$myBlogs}} blog/s created
+                                    @hasanyrole('supervisor')
+                                    / assigned
+                                    @endhasanyrole
+                                    .
+                                </p>
                             </div>
                         </div>
                         <div class="card border-light mb-3 col-md-3 m-2" style="max-width: 18rem;">
                             <div class="card-body text-light">
                                 <h5 class="card-title">Blogs created</h5>
-                                <p class="card-text">The platform have: {{$blogs}} blog/s created.</p>
+                                <p class="card-text">The platform have: {{$blogs}} blog/s created
+                                </p>
                             </div>
                         </div>
                         @endhasanyrole
@@ -59,7 +70,7 @@
                         <div class="card border-secondary mb-3 col-md-3 m-2" style="max-width: 18rem;">
                             <div class="card-body text-secondary">
                                 <h5 class="card-title">Assigned Users</h5>
-                                <p class="card-text">You have: 0 bloggers users assigned.</p>
+                                <p class="card-text">You have: {{$assigned}} bloggers users assigned.</p>
                             </div>
                         </div>
                         @endhasanyrole

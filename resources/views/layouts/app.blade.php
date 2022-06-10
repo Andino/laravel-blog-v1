@@ -49,7 +49,7 @@
                                 </li>
                             @endif
                         @else
-                            @hasanyrole('administrator')
+                            @hasanyrole('administrator|supervisor')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                             </li>

@@ -16,7 +16,7 @@
                     </a>
                     @endcan
                 </div>
-                @role('administrator')
+                @role('administrator|supervisor')
                 <div class="card-body">
                     @if(session()->get('success'))
                         <div class="alert alert-success">

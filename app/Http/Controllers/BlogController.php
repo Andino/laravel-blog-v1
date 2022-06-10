@@ -47,7 +47,7 @@ class BlogController extends Controller
             ->when($loggedUser->hasRole('blogger'), function ($query, $role) use ($loggedUser) {
                 $query->where('user_id', $loggedUser->id);
             })
-            ->when($loggedUser->hasRole('supervisor'), function ($query, $role) use ($loggedUser) {
+            ->when($loggedUser->hasRole('supervisor'), function ($query, $role) use ($loggedUser, $bloggers) {
                 $query->where('user_id', $loggedUser->id)
                 ->orWhereIn('user_id', $bloggers);
             })
