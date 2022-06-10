@@ -54,7 +54,11 @@
                                 <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                             </li>
                             @endhasanyrole
-                        
+                            @hasanyrole('administrator')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('supervisors.list', ['role' => 'supervisor']) }}">{{ __('Supervisors') }}</a>
+                            </li>
+                            @endhasanyrole
                             @hasanyrole('administrator|blogger|supervisor')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('blogs.index') }}">{{ __('Blogs') }}</a>

@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::put('/profile', 'HomeController@update')->name('users.profile');
 
+    Route::get('/users/{role}', 'UserController@listByRole')->name('supervisors.list');
     Route::resource('users', 'UserController');
     Route::resource('blogs', 'BlogController');
 });

@@ -42,16 +42,46 @@ class UserController extends Controller
 
         $loggedUser = auth()->user();
         $search = $request->search;
-        $users = $this->users
+        $users = $this->listfilters($request, '');
+        return view('user.list', compact('users'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listByRole(Request $request, $role)
+    {
+
+        $loggedUser = auth()->user();
+        $search = $request->search;
+        $users = $this->listfilters($request, $role);
+        return view('user.list', compact('users'));
+    }
+
+    public function listfilters($request, $role)
+    {
+        $loggedUser = auth()->user();
+        $search = $request->search;
+        return $this->users
             ->when($search, function ($query, $role) use ($search) {
                 $query->where('first_name', 'like', '%' . $search . '%')
                 ->orWhere('last_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
             })
-            ->where('id', "!=", $loggedUser->id)
+            ->when($search, function ($query, $role) use ($search) {
+                $query->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+            })
+            ->when($role, function ($q) use ($role) {
+                $q->whereHas('roles', function ($query) use ($role) {
+                    $query->where("name", $role);
+                });
+            })
             ->with('roles')
             ->paginate(20);
-        return view('user.list', compact('users'));
     }
 
     /**
