@@ -23,21 +23,16 @@
                     {{ session()->get('success') }}  
                     </div><br />
                 @endif
+                <div class="w-full d-flex items-align-center justify-content-end">
+                <form method="GET" action="{{ route('users.list') }}">
+                    @csrf
+                    <div class="form-group d-flex items-align-center justify-content-end">
+                        <button type="submit" class="btn btn-primary m-2">search</button>
+                        <input type="text" class="form-control m-2" name="first_name"/>
+                    </div>
+                </form>
+                </div>
                 <table class="table">
-                    <caption>
-                        <div class="d-flex justify-content-between">
-                            <div>List of users</div>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </caption>
                     <thead>
                         <tr>
                         <th scope="col">id</th>
@@ -87,6 +82,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                    <div class="w-full d-flex items-align-center justify-content-end">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>
