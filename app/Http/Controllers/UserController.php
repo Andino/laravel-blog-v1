@@ -43,9 +43,10 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         $search = $request->search;
         $users = $this->users
-            ->when($search, function ($query, $role) {
-                $query->where('first_name', $search)
-                ->orWhere('first_name', $search);
+            ->when($search, function ($query, $role) use ($search) {
+                $query->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
             })
             ->where('id', "!=", $loggedUser->id)
             ->with('roles')

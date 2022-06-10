@@ -24,11 +24,10 @@
                     </div><br />
                 @endif
                 <div class="w-full d-flex items-align-center justify-content-end">
-                <form method="GET" action="{{ route('users.list') }}">
-                    @csrf
+                <form method="GET" action="{{ route('users.index') }}">
                     <div class="form-group d-flex items-align-center justify-content-end">
                         <button type="submit" class="btn btn-primary m-2">search</button>
-                        <input type="text" class="form-control m-2" name="first_name"/>
+                        <input type="text" class="form-control m-2" name="search"/>
                     </div>
                 </form>
                 </div>

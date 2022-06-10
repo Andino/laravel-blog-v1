@@ -48,18 +48,22 @@ class HomeController extends Controller
         $loggedUser = auth()->user();
         $blogs = $this->blog->count();
         $myBlogs = $this->blog->where("user_id", $loggedUser->id)->count();
-        $administrators = $this->user->whereHas("roles", function ($q) {
-            $q->where("name", "administrator");
-        })->count();
 
-        $supervisors = $this->user->whereHas("roles", function ($q) {
-            $q->where("name", "supervisor");
-        })->count();
+        // mover funcionalidad a otro metodo
+        $administrators = $this->getUserByType("administrator");
 
-        $bloggers = $this->user->whereHas("roles", function ($q) {
-            $q->where("name", "blogger");
-        })->count();
+        $supervisors = $this->getUserByType("supervisor");
+
+        $bloggers = $this->getUserByType("blogger");
+
         return view('home', compact('blogs', 'myBlogs', 'administrators', 'supervisors', 'bloggers'));
+    }
+
+    public function getUserByType($type)
+    {
+        return $this->user->whereHas("roles", function ($q) use ($type) {
+            $q->where("name", $type);
+        })->count();
     }
 
     /**
