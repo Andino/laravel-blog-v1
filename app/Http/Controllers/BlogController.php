@@ -32,8 +32,8 @@ class BlogController extends Controller
     {
         $loggedUser = auth()->user();
         $blogs = $this->blog
-        ->where('user_id', $loggedUser->id)
-        ->get();
+            ->where('user_id', $loggedUser->id)
+            ->paginate(20);
         return view('blog.list', compact('blogs'));
     }
 
