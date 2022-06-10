@@ -7,14 +7,9 @@
             <div class="card">
                 <div class="d-flex justify-content-between card-header">
                     <div class="d-flex align-items-center">
-                        <h1>Users Module</h1>
+                        <h1>Supervisors Module</h1>
                         <small class="badge badge-secondary ml-2">list</small>
                     </div>
-                    @can('users create')
-                    <a href="{{ route('users.create') }}" type="button" class="btn btn-outline-primary d-flex align-items-center">
-                        Add User
-                    </a>
-                    @endcan
                 </div>
 
                 <div class="card-body">

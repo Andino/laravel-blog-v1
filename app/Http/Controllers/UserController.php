@@ -57,7 +57,7 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         $search = $request->search;
         $users = $this->listfilters($request, $role);
-        return view('user.list', compact('users'));
+        return view('user.supervisor.list', compact('users'));
     }
 
     public function listfilters($request, $role)
