@@ -12,7 +12,9 @@
                 @endif
                 <div class="card-header">Welcome to the Dashboard <a class="font-weight-bold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a></div>
                 <!-- Large modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Update Personal Info</button>
+                <div class="w-full d-flex items-align-center justify-content-center m-2">
+                    <button type="button" class="btn btn-primary w-50" data-toggle="modal" data-target=".bd-example-modal-lg">Update Personal Info</button>
+                </div>
 
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
