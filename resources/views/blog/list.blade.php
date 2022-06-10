@@ -37,6 +37,9 @@
                         <th scope="col">id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
+                        @hasanyrole('administrator|supervisor')
+                        <th scope="col">Owner</th>
+                        @endhasanyrole
                         <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -46,6 +49,16 @@
                             <th scope="row">{{$blog->id}}</th>
                             <td>{{$blog->name}}</td>
                             <td>{{$blog->description}}</td>
+                            @hasanyrole('administrator|supervisor')
+                            <td>
+                                @if(Auth::user()->id == $blog->user->id)
+                                <p class="badge badge-primary p-2">You</p>
+                                @else
+                                <p class="badge badge-success p-2">{{$blog->user->first_name}} {{$blog->user->last_name}}</p>
+                                @endif
+                            </td>
+                            @endhasanyrole
+
                             <td class="d-flex">
                                 
                                 @can('blog detail')

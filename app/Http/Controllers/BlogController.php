@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blog;
+use App\User;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,11 @@ class BlogController extends Controller
      * Blog Model instance
     */
     protected $blog;
+
+    /**
+     * User Model instance
+    */
+    protected $user;
 
     /**
      * Instantiate a new controller instance.
@@ -32,14 +38,20 @@ class BlogController extends Controller
     {
         $loggedUser = auth()->user();
         $search = $request->search;
+        $bloggers = User::where('parent', $loggedUser->id)->get()->pluck('id');
         $blogs = $this->blog
             ->when($search, function ($query, $role) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
             })
-            ->when(!$loggedUser->hasRole('administrator'), function ($query, $role) use ($loggedUser) {
+            ->when($loggedUser->hasRole('blogger'), function ($query, $role) use ($loggedUser) {
                 $query->where('user_id', $loggedUser->id);
             })
+            ->when($loggedUser->hasRole('supervisor'), function ($query, $role) use ($loggedUser) {
+                $query->where('user_id', $loggedUser->id)
+                ->orWhereIn('user_id', $bloggers);
+            })
+            ->with('user')
             ->paginate(20);
         return view('blog.list', compact('blogs'));
     }
