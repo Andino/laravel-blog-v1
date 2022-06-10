@@ -37,13 +37,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $loggedUser = auth()->user();
+        $search = $request->search;
         $users = $this->users
-        ->where('id', "!=", $loggedUser->id)
-        ->with('roles')
-        ->get();
+            ->when($search, function ($query, $role) {
+                $query->where('first_name', $search)
+                ->orWhere('first_name', $search);
+            })
+            ->where('id', "!=", $loggedUser->id)
+            ->with('roles')
+            ->paginate(20);
         return view('user.list', compact('users'));
     }
 
