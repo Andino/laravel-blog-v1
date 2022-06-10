@@ -49,10 +49,10 @@ If for some reason your project stop working do these:
 
     php artisan migrate
 
+credentials:
+
+    laravel.admin@gmail.com
+
+    secret
+
 ## Points Not Covered
-
-The following requirements doenst have covered on this project `due to time constraints`:
-
-- Filters and Pagination of datatables, we can use the paginate() method in the controller but, we was needing to add the functionality on front, se i've decided to avoid using that method for the moment
-
-- User assignation to the supervisors
