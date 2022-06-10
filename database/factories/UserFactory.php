@@ -24,10 +24,3 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
-
-//Random Role assignation
-$roles = ["supervisor, blogger"];
-$key = array_rand($roles);
-$factory->afterCreating(User::class, function ($user, $faker) {
-    $user->assignRole($roles[$key]);
-});

@@ -28,11 +28,18 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $loggedUser = auth()->user();
+        $search = $request->search;
         $blogs = $this->blog
-            ->where('user_id', $loggedUser->id)
+            ->when($search, function ($query, $role) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+            })
+            ->when(!$loggedUser->hasRole('administrator'), function ($query, $role) use ($loggedUser) {
+                $query->where('user_id', $loggedUser->id);
+            })
             ->paginate(20);
         return view('blog.list', compact('blogs'));
     }

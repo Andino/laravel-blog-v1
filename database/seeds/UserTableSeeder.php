@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Blog;
 
 class UserTableSeeder extends Seeder
 {
@@ -20,7 +21,16 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('secret')
         ]);
         $admin->assignRole('administrator');
+        factory(User::class, 50)->create()->each(function ($user){
+            $roles = ["supervisor", "blogger"];
+            $key = array_rand($roles);
+            $user->assignRole($roles[$key]);
 
-        factory(User::class, 50)->create();
+            $blog = Blog::create([
+                'name' => $user->first_name . " " . $user->last_name . "Created blog",
+                'description' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }
